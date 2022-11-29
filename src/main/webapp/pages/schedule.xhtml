@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:my="http://xmlns.jcp.org/jsf/composite/components"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Schedule page</title>
+</h:head>
+
+<f:view>
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/page.xhtml">
+            <ui:define name="header">
+                <ui:include src="../WEB-INF/templates/header.xhtml" />
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form id="addSchedule">
+                    <h1>Enter team 1 id</h1>
+                    <p:inputText value="${scheduleBean.team1}"/>
+
+                    <h1>Enter team 2 id</h1>
+                    <p:inputText value="${scheduleBean.team2}"/>
+
+                    <h1>Enter week</h1>
+                    <p:inputText value="${scheduleBean.week}"/>
+
+                    <h1>Enter day</h1>
+                    <p:inputText value="${scheduleBean.day}"/><br/><br/>
+
+                    <p:commandButton value="Add assignment"
+                                     action="#{scheduleBean.submit}"
+                                     update=":mainForm"/>
+                </h:form>
+
+                <h:form id="mainForm">
+                    <my:dataTable id="assignmentsList" dataView="#{assignmentsView}">
+                        <p:column headerText="Team1">
+                            <h:outputText value="#{entity.team1}" />
+                        </p:column>
+
+                        <p:column headerText="Team2">
+                            <h:outputText value="#{entity.team2}" />
+                        </p:column>
+
+                        <p:column headerText="Week">
+                            <h:outputText value="#{entity.period.getWeek()}" />
+                        </p:column>
+
+                        <p:column headerText="Day">
+                            <h:outputText value="#{entity.period.getDay()}" />
+                        </p:column>
+                    </my:dataTable>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+</f:view>
+</html>
